@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  height: 100%;
+  background: radial-gradient(circle at 20% 0%, #0c1020 0%, #05060a 60%);
+  color: #e2e8f0;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* Custom scrollbar for the dark theme. */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: #262d40;
+  border-radius: 4px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #3a4358;
+}
+
+/* Subtle glow utility for emphasis elements. */
+.glow-cyan {
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.25);
+}
+.text-glow {
+  text-shadow: 0 0 12px currentColor;
+}

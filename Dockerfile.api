@@ -1,0 +1,32 @@
+# SAAS AI backend image.
+FROM python:3.12-slim
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PYTHONPATH=/app/backend
+
+# System deps: curl for healthchecks, build-essential for any C-extension wheels.
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        curl build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copy the backend source + pyproject together: pyproject's package discovery
+# uses `where = ["backend"]`, so the backend dir must exist at install time.
+COPY pyproject.toml ./
+COPY backend/ ./backend/
+COPY scripts/ ./scripts/
+RUN pip install --upgrade pip && pip install .
+
+# Expose the API port.
+EXPOSE 8000
+
+# Simple wait-for-deps: poll Neo4j + Ollama before launching. Optional via env.
+COPY scripts/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

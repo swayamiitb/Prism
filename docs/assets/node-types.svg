@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 110" width="100%" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">
+  <defs>
+    <filter id="g3"><feGaussianBlur stdDeviation="2.5"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1000" height="110" fill="#05060a" rx="10"/>
+
+  <text x="20" y="24" font-size="10" fill="#64748b" font-weight="bold">ENTITY TYPES IN THE COMPANY KNOWLEDGE GRAPH</text>
+
+  <g filter="url(#g3)" font-size="10">
+    <g><circle cx="50" cy="65" r="8" fill="#22d3ee"><animate attributeName="r" values="8;11;8" dur="2s" repeatCount="indefinite"/></circle>
+       <text x="64" y="69" fill="#e2e8f0">Process</text></g>
+    <g><circle cx="140" cy="65" r="7" fill="#67e8f9"><animate attributeName="r" values="7;10;7" dur="2.2s" repeatCount="indefinite" begin="0.1s"/></circle>
+       <text x="153" y="69" fill="#e2e8f0">Step</text></g>
+    <g><circle cx="210" cy="65" r="7" fill="#f472b6"><animate attributeName="r" values="7;10;7" dur="2.1s" repeatCount="indefinite" begin="0.2s"/></circle>
+       <text x="223" y="69" fill="#e2e8f0">Decision</text></g>
+    <g><circle cx="310" cy="65" r="8" fill="#a78bfa"><animate attributeName="r" values="8;11;8" dur="2.3s" repeatCount="indefinite" begin="0.3s"/></circle>
+       <text x="324" y="69" fill="#e2e8f0">Policy</text></g>
+    <g><circle cx="400" cy="65" r="7" fill="#34d399"><animate attributeName="r" values="7;10;7" dur="2s" repeatCount="indefinite" begin="0.4s"/></circle>
+       <text x="413" y="69" fill="#e2e8f0">Role</text></g>
+    <g><circle cx="470" cy="65" r="7" fill="#6ee7b7"><animate attributeName="r" values="7;10;7" dur="2.2s" repeatCount="indefinite" begin="0.5s"/></circle>
+       <text x="483" y="69" fill="#e2e8f0">Team</text></g>
+    <g><circle cx="540" cy="65" r="6" fill="#fbbf24"><animate attributeName="r" values="6;9;6" dur="2.1s" repeatCount="indefinite" begin="0.6s"/></circle>
+       <text x="552" y="69" fill="#e2e8f0">Person</text></g>
+    <g><circle cx="620" cy="65" r="7" fill="#fb923c"><animate attributeName="r" values="7;10;7" dur="2.3s" repeatCount="indefinite" begin="0.7s"/></circle>
+       <text x="633" y="69" fill="#e2e8f0">System</text></g>
+    <g><circle cx="710" cy="65" r="6" fill="#9ca3af"><animate attributeName="r" values="6;9;6" dur="2s" repeatCount="indefinite" begin="0.8s"/></circle>
+       <text x="722" y="69" fill="#e2e8f0">Document</text></g>
+    <g><circle cx="810" cy="65" r="5" fill="#94a3b8"><animate attributeName="r" values="5;8;5" dur="2.4s" repeatCount="indefinite" begin="0.9s"/></circle>
+       <text x="820" y="69" fill="#e2e8f0">Tag</text></g>
+  </g>
+
+  <text x="980" y="24" font-size="8" fill="#64748b" text-anchor="end"><animate attributeName="opacity" values="0.4;1;0.4" dur="1.5s" repeatCount="indefinite"/>closed vocabulary · validated at write time · full provenance</text>
+</svg>

@@ -1,0 +1,32 @@
+# SearXNG & Neo4j volumes live here
+# Python
+__pycache__/
+*.py[cod]
+.venv*/
+*.egg-info/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# Env
+.env
+.scout/
+.searxng/
+
+# Node / Next
+node_modules/
+.next/
+out/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local graph dumps
+tmp/
+
+# Next.js auto-generated types (regenerated on build)
+next-env.d.ts
+
+# Exported skill files (engine output)
+skills/

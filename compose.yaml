@@ -1,0 +1,113 @@
+# Context Brain — full stack. Five services, all open source.
+#
+#   brain-api     FastAPI backend (LangGraph orchestrator + skills engine)
+#   brain-web     Next.js frontend (3D/2D knowledge graph + chat + skills)
+#   neo4j         the company knowledge graph
+#   ollama        local model runtime (gemma4:12b + bge-m3)
+#
+# (SearXNG removed — the Brain ingests company sources, not the public web.
+#  Drop it back in if you add a web-enrichment provider.)
+#
+# Quick start:
+#   cp .env.example .env
+#   docker compose up -d
+#   ./scripts/ollama_pull.sh        # pull the models once
+#   open http://localhost:3000
+
+name: context-brain
+
+services:
+  # ─────────────────────────── Knowledge graph ──────────────────────────────
+  neo4j:
+    image: neo4j:5.23-community
+    container_name: brain-neo4j
+    restart: unless-stopped
+    ports:
+      - "7474:7474"   # browser UI (http://localhost:7474)
+      - "7687:7687"   # Bolt
+    environment:
+      NEO4J_AUTH: neo4j/${NEO4J_AUTH_PASSWORD:-brain-dev-password}
+      NEO4J_PLUGINS: '["apoc"]'
+      NEO4J_server_memory_heap_initial__size: 512m
+      NEO4J_server_memory_heap_max__size: 1G
+      NEO4J_server_memory_pagecache_size: 512m
+      NEO4J_dbms_security_procedures_unrestricted: "apoc.*"
+    volumes:
+      - neo4j-data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O - http://localhost:7474 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  # ─────────────────────────── Local model runtime ──────────────────────────
+  ollama:
+    image: ollama/ollama:0.32.3
+    container_name: brain-ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-models:/root/.ollama
+    # NOTE: for GPU acceleration on Linux, uncomment:
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - { driver: nvidia, count: all, capabilities: [gpu] }
+    healthcheck:
+      test: ["CMD-SHELL", "ollama list >/dev/null 2>&1 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  # ─────────────────────────── Backend API ──────────────────────────────────
+  brain-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    image: context-brain-api:latest
+    container_name: brain-api
+    restart: unless-stopped
+    command: >
+      uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+      --reload-dir /app/backend/context_brain --reload-dir /app/backend/app
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    env_file: .env
+    environment:
+      RUNTIME_ENV: dev
+      OLLAMA_HOST: http://ollama:11434
+      NEO4J_URI: bolt://neo4j:7687
+      WAIT_FOR_DEPS: "true"
+    depends_on:
+      neo4j:
+        condition: service_healthy
+      ollama:
+        condition: service_healthy
+
+  # ─────────────────────────── Frontend ─────────────────────────────────────
+  brain-web:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: context-brain-web:latest
+    container_name: brain-web
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      NEXT_PUBLIC_API_URL: http://localhost:8000
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      - brain-api
+
+volumes:
+  neo4j-data:
+  ollama-models:

@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 340" width="100%" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">
+  <defs>
+    <radialGradient id="bg" cx="25%" cy="15%" r="95%">
+      <stop offset="0%" stop-color="#0d1226"/>
+      <stop offset="55%" stop-color="#070912"/>
+      <stop offset="100%" stop-color="#04050a"/>
+    </radialGradient>
+    <radialGradient id="cyanG" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#22d3ee"/><stop offset="100%" stop-color="#0e7490"/></radialGradient>
+    <radialGradient id="vioG" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#c4b5fd"/><stop offset="100%" stop-color="#7c3aed"/></radialGradient>
+    <radialGradient id="pnkG" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#f9a8d4"/><stop offset="100%" stop-color="#be185d"/></radialGradient>
+    <radialGradient id="grnG" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#6ee7b7"/><stop offset="100%" stop-color="#047857"/></radialGradient>
+    <radialGradient id="ambG" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fcd34d"/><stop offset="100%" stop-color="#b45309"/></radialGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="bigGlow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="8"/></filter>
+  </defs>
+
+  <rect width="1000" height="340" fill="url(#bg)"/>
+  <circle cx="160" cy="150" r="90" fill="#22d3ee" opacity="0.06" filter="url(#bigGlow)"/>
+  <circle cx="240" cy="200" r="70" fill="#a78bfa" opacity="0.05" filter="url(#bigGlow)"/>
+
+  <g stroke="#1a1f2e" stroke-width="0.5" opacity="0.4">
+    <line x1="0" y1="85" x2="1000" y2="85"/>
+    <line x1="0" y1="170" x2="1000" y2="170"/>
+    <line x1="0" y1="255" x2="1000" y2="255"/>
+  </g>
+
+  <!-- ============ PROCESS GRAPH (a refund flow) ============ -->
+  <g filter="url(#glow)">
+    <g stroke-width="1.4" fill="none">
+      <!-- Process -> Verify (HAS_STEP) -->
+      <line x1="190" y1="120" x2="100" y2="200" stroke="#22d3ee" opacity="0.65">
+        <animate attributeName="stroke-dasharray" values="0 160;160 0" dur="2.2s" repeatCount="indefinite"/>
+      </line>
+      <!-- Verify -> Decide (NEXT) -->
+      <line x1="100" y1="200" x2="280" y2="190" stroke="#67e8f9" opacity="0.65">
+        <animate attributeName="stroke-dasharray" values="0 160;160 0" dur="2.4s" repeatCount="indefinite" begin="0.3s"/>
+      </line>
+      <!-- Decide -> Escalate (IF) -->
+      <line x1="280" y1="190" x2="200" y2="265" stroke="#f472b6" opacity="0.7">
+        <animate attributeName="stroke-dasharray" values="0 160;160 0" dur="2.3s" repeatCount="indefinite" begin="0.6s"/>
+      </line>
+      <!-- Decide -> Issue (IF, other branch) -->
+      <line x1="280" y1="190" x2="380" y2="255" stroke="#34d399" opacity="0.6">
+        <animate attributeName="stroke-dasharray" values="0 160;160 0" dur="2.5s" repeatCount="indefinite" begin="0.9s"/>
+      </line>
+      <!-- Process GOVERNED_BY Policy -->
+      <line x1="190" y1="120" x2="370" y2="115" stroke="#a78bfa" opacity="0.5" stroke-dasharray="3 5"/>
+      <!-- Verify USES Stripe -->
+      <line x1="100" y1="200" x2="430" y2="175" stroke="#fb923c" opacity="0.45" stroke-dasharray="3 5"/>
+    </g>
+
+    <!-- flowing particles -->
+    <circle r="2.4" fill="#e2e8f0"><animateMotion dur="2.2s" repeatCount="indefinite" path="M190,120 L100,200"/></circle>
+    <circle r="2.4" fill="#e2e8f0"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0.3s" path="M100,200 L280,190"/></circle>
+    <circle r="2.4" fill="#e2e8f0"><animateMotion dur="2.3s" repeatCount="indefinite" begin="0.6s" path="M280,190 L200,265"/></circle>
+    <circle r="2.4" fill="#e2e8f0"><animateMotion dur="2.5s" repeatCount="indefinite" begin="0.9s" path="M280,190 L380,255"/></circle>
+
+    <g>
+      <circle cx="190" cy="120" r="10" fill="url(#cyanG)"><animate attributeName="r" values="10;13;10" dur="1.8s" repeatCount="indefinite"/></circle>
+      <circle cx="100" cy="200" r="7" fill="url(#grnG)"><animate attributeName="r" values="7;10;7" dur="2.2s" repeatCount="indefinite" begin="0.2s"/></circle>
+      <circle cx="280" cy="190" r="8" fill="url(#pnkG)"><animate attributeName="r" values="8;11;8" dur="2s" repeatCount="indefinite" begin="0.4s"/></circle>
+      <circle cx="200" cy="265" r="6" fill="url(#cyanG)"><animate attributeName="r" values="6;9;6" dur="2.4s" repeatCount="indefinite" begin="0.6s"/></circle>
+      <circle cx="380" cy="255" r="6" fill="url(#cyanG)"><animate attributeName="r" values="6;9;6" dur="2.1s" repeatCount="indefinite" begin="0.8s"/></circle>
+      <circle cx="370" cy="115" r="6" fill="url(#vioG)"><animate attributeName="r" values="6;9;6" dur="2.3s" repeatCount="indefinite" begin="1s"/></circle>
+      <circle cx="430" cy="175" r="5" fill="url(#ambG)"><animate attributeName="r" values="5;8;5" dur="2.2s" repeatCount="indefinite" begin="1.2s"/></circle>
+    </g>
+
+    <g font-size="7" fill="#94a3b8" text-anchor="middle">
+      <text x="190" y="104">Process</text>
+      <text x="100" y="218">Verify</text>
+      <text x="280" y="174">Decide</text>
+      <text x="200" y="283">Escalate</text>
+      <text x="380" y="273">Issue</text>
+      <text x="370" y="99">Policy</text>
+      <text x="430" y="160">Stripe</text>
+    </g>
+  </g>
+
+  <!-- ============ TITLE ============ -->
+  <g>
+    <text x="500" y="82" font-size="44" font-weight="bold" fill="#22d3ee" opacity="0.3" filter="url(#bigGlow)">Context Brain</text>
+    <text x="500" y="82" font-size="44" font-weight="bold" fill="#22d3ee" filter="url(#glow)">Context Brain</text>
+    <text x="503" y="108" font-size="12" fill="#a78bfa" filter="url(#glow)">⬡ how the company works → executable skills</text>
+
+    <g font-size="11">
+      <rect x="500" y="132" width="120" height="28" rx="7" fill="#0d1322" stroke="#22d3ee" stroke-width="0.8"/>
+      <text x="511" y="150" fill="#22d3ee" filter="url(#glow)"><animate attributeName="opacity" values="1;0.3;1" dur="1.2s" repeatCount="indefinite"/>●</text>
+      <text x="527" y="150" fill="#e2e8f0">live</text>
+      <text x="562" y="150" fill="#64748b" font-size="9">synthesizing…</text>
+
+      <rect x="630" y="132" width="120" height="28" rx="7" fill="#0d1322" stroke="#a78bfa" stroke-width="0.8"/>
+      <text x="643" y="150" fill="#a78bfa">model</text>
+      <text x="683" y="150" fill="#e2e8f0" font-size="9">gemma4 &lt;31B</text>
+
+      <rect x="760" y="132" width="120" height="28" rx="7" fill="#0d1322" stroke="#f472b6" stroke-width="0.8"/>
+      <text x="773" y="150" fill="#f472b6">skills</text>
+      <text x="808" y="150" fill="#e2e8f0" font-size="9">.skill.yml</text>
+    </g>
+
+    <g font-size="11">
+      <text x="500" y="188" fill="#64748b"><animate attributeName="opacity" values="0;1;1;0;0" dur="4.5s" repeatCount="indefinite"/>&gt; how do we handle refunds over $500?</text>
+      <text x="500" y="208" fill="#34d399" filter="url(#glow)"><animate attributeName="opacity" values="0;0;1;1;0" dur="4.5s" repeatCount="indefinite"/>✓ read Slack + policy doc + billing design</text>
+      <text x="500" y="228" fill="#a78bfa" filter="url(#glow)"><animate attributeName="opacity" values="0;0;0;1;1" dur="4.5s" repeatCount="indefinite"/>⟿ synthesized RefundHandling · exported skill</text>
+      <text x="500" y="252" fill="#22d3ee"><animate attributeName="opacity" values="0;0;0;0;1" dur="4.5s" repeatCount="indefinite"/>▍</text>
+    </g>
+  </g>
+
+  <rect x="0" y="0" width="1000" height="50" fill="#22d3ee" opacity="0.04"><animate attributeName="y" values="-50;340" dur="7s" repeatCount="indefinite"/></rect>
+</svg>

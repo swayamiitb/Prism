@@ -1,0 +1,7 @@
+# SAAS AI UI quick-prompt suggestions (shown in the chat panel).
+quick_prompts:
+  - "Investigate example.com — DNS, WHOIS, and SSL."
+  - "Recon github.com/torvalds"
+  - "What do we already know about github.com?"
+  - "Who is connected to acme.com within 2 hops?"
+  - "Search the web for recent news on OpenAI and file the key orgs into the graph."
